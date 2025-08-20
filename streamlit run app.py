@@ -31,7 +31,7 @@ else:
 # Remove already picked names from available pool
 names = [n for n in names if n not in picked_names]
 
-st.set_page_config(page_title="હરીપ્રબોધમ", page_icon="🎲", layout="wide")
+st.set_page_config(page_title="Tambola Picker", page_icon="🎲", layout="wide")
 st.title("🎲 Tambola Name Picker")
 
 # Pick Name Button
@@ -46,12 +46,23 @@ if st.button("Pick Name"):
         # Save picked names
         pd.DataFrame({"Picked": picked_names}).to_csv(picked_file, index=False)
 
+# Generate random bright color for highlight
+def random_color():
+    r = random.randint(100, 255)
+    g = random.randint(100, 255)
+    b = random.randint(100, 255)
+    return f'rgb({r},{g},{b})'
+
 # Create two columns: left for last picked, right for picked so far
-col1, col2 = st.columns([2, 1])  # Left column is bigger
+col1, col2 = st.columns([2, 1])  # Left column bigger
 
 with col1:
     if picked_names:
-        st.markdown(f"<h1 style='text-align: left; color: blue;'>{picked_names[-1]}</h1>", unsafe_allow_html=True)
+        color = random_color()
+        st.markdown(
+            f"<h1 style='text-align: left; background-color: {color}; padding: 20px; border-radius: 10px;'>{picked_names[-1]}</h1>",
+            unsafe_allow_html=True
+        )
     else:
         st.write("Click 'Pick Name' to start!")
 
