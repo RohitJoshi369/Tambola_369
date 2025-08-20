@@ -12,18 +12,18 @@ import random
 import os
 import streamlit as st
 
-# Input Excel file with all names
-input_file = "Book1.xlsx"
-# Output Excel file to store picked names
-picked_file = "picked_names.xlsx"
+# Input CSV file with all names
+input_file = "Book1.csv"
+# Output CSV file to store picked names
+picked_file = "picked_names.csv"
 
 # Load all names
-df = pd.read_excel(input_file)
+df = pd.read_csv(input_file)
 names = df["Name"].tolist()
 
 # Load already picked names if file exists
 if os.path.exists(picked_file):
-    picked_df = pd.read_excel(picked_file)
+    picked_df = pd.read_csv(picked_file)
     picked_names = picked_df["Picked"].tolist()
 else:
     picked_names = []
@@ -31,8 +31,10 @@ else:
 # Remove already picked names from available pool
 names = [n for n in names if n not in picked_names]
 
-st.title("Tambola Name Picker 🎲")
+st.set_page_config(page_title="Tambola Picker", page_icon="🎲", layout="centered")
+st.title("🎲 Tambola Name Picker")
 
+# Pick Name Button
 if st.button("Pick Name"):
     if not names:
         st.success("🎉 All names have been picked!")
@@ -42,10 +44,14 @@ if st.button("Pick Name"):
         names.remove(chosen)
 
         # Save picked names
-        pd.DataFrame({"Picked": picked_names}).to_excel(picked_file, index=False)
+        pd.DataFrame({"Picked": picked_names}).to_csv(picked_file, index=False)
 
         st.subheader(f"👉 Selected: **{chosen}**")
 
-st.write("### Picked so far:")
-for i, name in enumerate(picked_names, start=1):
-    st.write(f"{i}. {name}")
+# Show picked names so far
+st.write("### 📋 Picked so far:")
+if picked_names:
+    for i, name in enumerate(picked_names, start=1):
+        st.write(f"{i}. {name}")
+else:
+    st.info("No names picked yet. Click 'Pick Name' to start.")
