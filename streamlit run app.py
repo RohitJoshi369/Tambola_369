@@ -42,27 +42,33 @@ st.markdown(
 
 
 # ---------------- Buttons ---------------- #
-# ---------------- Buttons (Centered & Bigger) ---------------- #
-col1, col2, col3 = st.columns([1, 3, 1])  # middle column wider
+# ---------------- Buttons (Centered, Side by Side, Bigger) ---------------- #
+col1, col2, col3 = st.columns([1, 3, 1])  # center wider
 
-with col2:  # put both buttons inside the center column
+with col2:  # both buttons inside the center column
     st.markdown(
         """
         <style>
         div.stButton > button {
-            width: 100%;
-            height: 70px;
-            font-size: 24px;
-            font-weight: bold;
-            border-radius: 12px;
+            width: 45% !important;   /* half width */
+            height: 70px !important; /* taller */
+            font-size: 24px !important; /* bigger text */
+            font-weight: bold !important;
+            margin: 5px !important;
+            border-radius: 12px !important;
         }
         </style>
         """,
         unsafe_allow_html=True
     )
 
-    pick_btn = st.button("🎲 Pick Name")
-    reset_btn = st.button("🔄 Reset Game")
+    c1, c2 = st.columns(2)  # split center column into 2 for side-by-side buttons
+
+    with c1:
+        pick_btn = st.button("🎲 Pick Name")
+
+    with c2:
+        reset_btn = st.button("🔄 Reset Game")
 
     if pick_btn:
         if not names:
@@ -81,6 +87,7 @@ with col2:  # put both buttons inside the center column
         picked_names = []
         names = df["Name"].tolist()
         st.warning("⚠️ Game has been reset! All names are available again.")
+
 
 
 # ---------------- Function to generate random color ---------------- #
