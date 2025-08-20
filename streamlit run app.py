@@ -41,28 +41,32 @@ st.markdown(
 )
 
 
-# ---------------- Buttons ---------------- #
-col_btn1, col_btn2 = st.columns(2)
+# ---------------- Buttons (Centered & Side by Side) ---------------- #
+col1, col2, col3 = st.columns([1, 2, 1])  # middle column wider
 
-with col_btn1:
-    if st.button("Pick Name"):
-        if not names:
-            st.success("🎉 All names have been picked!")
-        else:
-            chosen = random.choice(names)
-            picked_names.append(chosen)
-            names.remove(chosen)
+with col2:  # place both buttons in the center column
+    b1, b2 = st.columns(2)  # split center column into 2 equal parts
 
-            # Save picked names
-            pd.DataFrame({"Picked": picked_names}).to_csv(picked_file, index=False)
+    with b1:
+        if st.button("🎲 Pick Name"):
+            if not names:
+                st.success("🎉 All names have been picked!")
+            else:
+                chosen = random.choice(names)
+                picked_names.append(chosen)
+                names.remove(chosen)
 
-with col_btn2:
-    if st.button("Reset Game"):
-        if os.path.exists(picked_file):
-            os.remove(picked_file)
-        picked_names = []
-        names = df["Name"].tolist()
-        st.warning("⚠️ Game has been reset! All names are available again.")
+                # Save picked names
+                pd.DataFrame({"Picked": picked_names}).to_csv(picked_file, index=False)
+
+    with b2:
+        if st.button("🔄 Reset Game"):
+            if os.path.exists(picked_file):
+                os.remove(picked_file)
+            picked_names = []
+            names = df["Name"].tolist()
+            st.warning("⚠️ Game has been reset! All names are available again.")
+
 
 # ---------------- Function to generate random color ---------------- #
 def random_color():
