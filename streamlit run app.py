@@ -12,18 +12,18 @@ import random
 import os
 import streamlit as st
 
-# Input CSV file with all names
-input_file = "Book1.csv"
-# Output CSV file to store picked names
-picked_file = "picked_names.csv"
+# Input Excel file
+input_file = "Book1.xlsx"
+# Output Excel file to store picked names
+picked_file = "picked_names.xlsx"
 
 # Load all names
-df = pd.read_csv(input_file)
+df = pd.read_excel(input_file)  # Excel instead of CSV
 names = df["Name"].tolist()
 
 # Load already picked names if file exists
 if os.path.exists(picked_file):
-    picked_df = pd.read_csv(picked_file)
+    picked_df = pd.read_excel(picked_file)
     picked_names = picked_df["Picked"].tolist()
 else:
     picked_names = []
@@ -44,7 +44,7 @@ if st.button("Pick Name"):
         names.remove(chosen)
 
         # Save picked names
-        pd.DataFrame({"Picked": picked_names}).to_csv(picked_file, index=False)
+        pd.DataFrame({"Picked": picked_names}).to_excel(picked_file, index=False)
 
         st.subheader(f"👉 Selected: **{chosen}**")
 
