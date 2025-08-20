@@ -34,26 +34,37 @@ names = [n for n in names if n not in picked_names]
 st.set_page_config(page_title="Tambola Picker", page_icon="🎲", layout="wide")
 st.title("🎲 Tambola Name Picker")
 
-# Pick Name Button
-if st.button("Pick Name"):
-    if not names:
-        st.success("🎉 All names have been picked!")
-    else:
-        chosen = random.choice(names)
-        picked_names.append(chosen)
-        names.remove(chosen)
+# ---------------- Buttons ---------------- #
+col_btn1, col_btn2 = st.columns(2)
 
-        # Save picked names
-        pd.DataFrame({"Picked": picked_names}).to_csv(picked_file, index=False)
+with col_btn1:
+    if st.button("Pick Name"):
+        if not names:
+            st.success("🎉 All names have been picked!")
+        else:
+            chosen = random.choice(names)
+            picked_names.append(chosen)
+            names.remove(chosen)
 
-# Generate random bright color for highlight
+            # Save picked names
+            pd.DataFrame({"Picked": picked_names}).to_csv(picked_file, index=False)
+
+with col_btn2:
+    if st.button("Reset Game"):
+        if os.path.exists(picked_file):
+            os.remove(picked_file)
+        picked_names = []
+        names = df["Name"].tolist()
+        st.warning("⚠️ Game has been reset! All names are available again.")
+
+# ---------------- Function to generate random color ---------------- #
 def random_color():
     r = random.randint(100, 255)
     g = random.randint(100, 255)
     b = random.randint(100, 255)
     return f'rgb({r},{g},{b})'
 
-# Create two columns: left for last picked, right for picked so far
+# ---------------- Display Columns ---------------- #
 col1, col2 = st.columns([2, 1])  # Left column bigger
 
 with col1:
