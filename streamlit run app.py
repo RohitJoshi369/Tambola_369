@@ -13,7 +13,7 @@ import streamlit as st
 
 # Input CSV file with all names
 #input_file = "Book1.csv"
-#input_file = "Book1_GujText.csv"
+input_file = "Book1_GujText.csv"
 
 # Output CSV file to store picked names
 picked_file = "picked_names.csv"
