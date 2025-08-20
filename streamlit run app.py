@@ -30,7 +30,7 @@ else:
 # Remove already picked names from available pool
 names = [n for n in names if n not in picked_names]
 
-st.set_page_config(page_title="Tambola Picker", page_icon="🎲", layout="wide")
+st.set_page_config(page_title="Gun Picker", page_icon="🎲", layout="wide")
 st.title("🙏🏻 ગુણ અમારા બને 🙏🏻")
 
 # ---------------- Buttons ---------------- #
