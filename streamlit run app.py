@@ -63,23 +63,23 @@ def random_color():
     b = random.randint(100, 255)
     return f'rgb({r},{g},{b})'
 
-# ---------------- Display Columns ---------------- #
-col1, col2 = st.columns([2, 1])  # Left column bigger
+# ---------------- Display Last Picked Name ---------------- #
+if picked_names:
+    color = random_color()
+    st.markdown(
+        f"<h1 style='text-align: left; background-color: {color}; padding: 20px; border-radius: 10px;'>{picked_names[-1]}</h1>",
+        unsafe_allow_html=True
+    )
+else:
+    st.write("Click 'Pick Name' to start!")
 
-with col1:
-    if picked_names:
-        color = random_color()
-        st.markdown(
-            f"<h1 style='text-align: left; background-color: {color}; padding: 20px; border-radius: 10px;'>{picked_names[-1]}</h1>",
-            unsafe_allow_html=True
-        )
-    else:
-        st.write("Click 'Pick Name' to start!")
-
-with col2:
-    st.write("### 📋 Picked so far:")
-    if picked_names:
-        for i, name in enumerate(picked_names, start=1):
-            st.write(f"{i}. {name}")
-    else:
-        st.info("No names picked yet.")
+# ---------------- Display Picked Names Horizontally ---------------- #
+st.write("### 📋 Picked so far:")
+if picked_names:
+    # Display names in rows with max 10 per line
+    max_per_line = 10
+    for i in range(0, len(picked_names), max_per_line):
+        line = picked_names[i:i+max_per_line]
+        st.write(" | ".join(line))
+else:
+    st.info("No names picked yet.")
