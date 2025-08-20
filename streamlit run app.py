@@ -63,23 +63,26 @@ def random_color():
     b = random.randint(100, 255)
     return f'rgb({r},{g},{b})'
 
-# ---------------- Display Last Picked Name ---------------- #
+# ---------------- Display Last Picked Name (Centered & Big) ---------------- #
 if picked_names:
     color = random_color()
     st.markdown(
-        f"<h1 style='text-align: left; background-color: {color}; padding: 20px; border-radius: 10px;'>{picked_names[-1]}</h1>",
+        f"""
+        <div style='text-align: center; margin: 40px 0;'>
+            <h1 style='font-size: 80px; background-color: {color}; padding: 40px; border-radius: 15px;'>{picked_names[-1]}</h1>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 else:
     st.write("Click 'Pick Name' to start!")
 
-# ---------------- Display Picked Names Horizontally ---------------- #
-st.write("### 📋 Picked so far:")
+# ---------------- Display Picked Names Horizontally (Bold & Bigger) ---------------- #
+st.markdown("<h2 style='font-weight: bold;'>📋 Picked so far:</h2>", unsafe_allow_html=True)
 if picked_names:
-    # Display names in rows with max 10 per line
     max_per_line = 10
     for i in range(0, len(picked_names), max_per_line):
         line = picked_names[i:i+max_per_line]
-        st.write(" | ".join(line))
+        st.markdown(f"<p style='font-weight: bold; font-size: 20px;'>{' | '.join(line)}</p>", unsafe_allow_html=True)
 else:
     st.info("No names picked yet.")
