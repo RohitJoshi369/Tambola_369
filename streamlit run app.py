@@ -33,7 +33,13 @@ else:
 names = [n for n in names if n not in picked_names]
 
 st.set_page_config(page_title="Gun Picker by RJ", page_icon="🎲", layout="wide")
-st.title("🙏🏻 ગુણ અમારા બને 🙏🏻")
+st.markdown(
+    """
+    <h1 style='text-align: center;'>🙏🏻 ગુણ અમારા બનાવશોજી 🙏🏻</h1>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # ---------------- Buttons ---------------- #
 col_btn1, col_btn2 = st.columns(2)
