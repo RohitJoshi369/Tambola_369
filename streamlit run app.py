@@ -31,7 +31,7 @@ else:
 names = [n for n in names if n not in picked_names]
 
 st.set_page_config(page_title="Tambola Picker", page_icon="🎲", layout="wide")
-st.title("🎲 Tambola Name Picker")
+st.title("🙏🏻 ગુણ અમારા બને 🙏🏻")
 
 # ---------------- Buttons ---------------- #
 col_btn1, col_btn2 = st.columns(2)
