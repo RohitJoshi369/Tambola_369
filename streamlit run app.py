@@ -31,7 +31,7 @@ else:
 # Remove already picked names from available pool
 names = [n for n in names if n not in picked_names]
 
-st.set_page_config(page_title="Tambola Picker", page_icon="🎲", layout="centered")
+st.set_page_config(page_title="Tambola Picker", page_icon="🎲", layout="wide")
 st.title("🎲 Tambola Name Picker")
 
 # Pick Name Button
@@ -46,12 +46,19 @@ if st.button("Pick Name"):
         # Save picked names
         pd.DataFrame({"Picked": picked_names}).to_csv(picked_file, index=False)
 
-        st.subheader(f"👉 Selected: **{chosen}**")
+# Create two columns: left for last picked, right for picked so far
+col1, col2 = st.columns([2, 1])  # Left column is bigger
 
-# Show picked names so far
-st.write("### 📋 Picked so far:")
-if picked_names:
-    for i, name in enumerate(picked_names, start=1):
-        st.write(f"{i}. {name}")
-else:
-    st.info("No names picked yet. Click 'Pick Name' to start.")
+with col1:
+    if picked_names:
+        st.markdown(f"<h1 style='text-align: left; color: blue;'>{picked_names[-1]}</h1>", unsafe_allow_html=True)
+    else:
+        st.write("Click 'Pick Name' to start!")
+
+with col2:
+    st.write("### 📋 Picked so far:")
+    if picked_names:
+        for i, name in enumerate(picked_names, start=1):
+            st.write(f"{i}. {name}")
+    else:
+        st.info("No names picked yet.")
