@@ -42,10 +42,29 @@ st.markdown(
 
 
 # ---------------- Buttons ---------------- #
-col_btn1, col_btn2 = st.columns(2)
+# ---------------- Buttons (Centered & Bigger) ---------------- #
+col1, col2, col3 = st.columns([1, 2, 1])  # middle column wider
 
-with col_btn1:
-    if st.button("Pick Name"):
+with col2:  # put both buttons inside the center column
+    st.markdown(
+        """
+        <style>
+        div.stButton > button {
+            width: 100%;
+            height: 70px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 12px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    pick_btn = st.button("🎲 Pick Name")
+    reset_btn = st.button("🔄 Reset Game")
+
+    if pick_btn:
         if not names:
             st.success("🎉 All names have been picked!")
         else:
@@ -56,13 +75,13 @@ with col_btn1:
             # Save picked names
             pd.DataFrame({"Picked": picked_names}).to_csv(picked_file, index=False)
 
-with col_btn2:
-    if st.button("Reset Game"):
+    if reset_btn:
         if os.path.exists(picked_file):
             os.remove(picked_file)
         picked_names = []
         names = df["Name"].tolist()
         st.warning("⚠️ Game has been reset! All names are available again.")
+
 
 # ---------------- Function to generate random color ---------------- #
 def random_color():
