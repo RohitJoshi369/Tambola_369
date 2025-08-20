@@ -43,7 +43,7 @@ st.markdown(
 
 # ---------------- Buttons ---------------- #
 # ---------------- Buttons (Centered & Bigger) ---------------- #
-col1, col2, col3 = st.columns([1, 2, 1])  # middle column wider
+col1, col2, col3 = st.columns([1, 3, 1])  # middle column wider
 
 with col2:  # put both buttons inside the center column
     st.markdown(
