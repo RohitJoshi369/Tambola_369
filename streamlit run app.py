@@ -35,7 +35,7 @@ names = [n for n in names if n not in picked_names]
 st.set_page_config(page_title="Gun Picker by RJ", page_icon="🎲", layout="wide")
 st.markdown(
     """
-    <h1 style='text-align: center;'>🙏🏻 બસ એક તું જ રાજી થા 🙏🏻</h1>
+    <h1 style='text-align: center;'>🙏🏻 બસ એક તું રાજી થા 🙏🏻</h1>
     """,
     unsafe_allow_html=True
 )
